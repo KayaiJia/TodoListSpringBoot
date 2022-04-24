@@ -24,12 +24,12 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            &lt;!&ndash;>此处设置成主类的类全名<&ndash;&gt;-->
-<!--                            <mainClass>com.TomAndersen.AppMain</mainClass>-->
-<!--                        </manifest>-->
-<!--                    </archive>-->
+                    <archive>
+                        <manifest>
+                            <!-->此处设置成主类的类全名<-->
+                            <mainClass>WxCloudRunApplication</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
                 <executions>
                     <execution>
