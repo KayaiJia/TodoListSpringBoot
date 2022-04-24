@@ -7,7 +7,7 @@ FROM maven:3.6.0-jdk-16-slim as build
 WORKDIR /app
 
 # 将src目录下所有文件，拷贝到工作目录中src目录下
-COPY src/main /app/src
+COPY src /app/src
 
 # 将pom.xml文件，拷贝到工作目录下
 COPY settings.xml pom.xml /app/
