@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE beans [
+        <!ELEMENT beans (bean*)>
+        <!ELEMENT bean (property*)>
+        <!ELEMENT property (#PCDATA)>
+
+        <!ATTLIST bean id ID #REQUIRED>
+        <!ATTLIST bean class CDATA #IMPLIED>
+        <!ATTLIST property name CDATA #IMPLIED>
+        <!ATTLIST property ref IDREF #IMPLIED>
+        ]>
+
+<beans>
+    <bean id="userDAO" class="dao.imp.UserDAOImp"/>
+    <bean id="thingDAO" class="dao.imp.ThingDAOImp"/>
+    <bean id="projectDAO" class="dao.imp.ProjectDAOImp">
+        <property name="thingDAOImp" ref="thingDAO"/>
+    </bean>
+    <bean id="listDAO" class="dao.imp.ListDAOImp">
+        <property name="thingDAO" ref="thingDAO"/>
+    </bean>
+    <bean id="mapDAO" class="dao.imp.MapDAOImp"/>
+
+    <bean id="userService" class="service.imp.UserServiceImp">
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+
+    <bean id="projectService" class="service.imp.ProjectServiceImp">
+        <property name="projectDAO" ref="projectDAO"/>
+    </bean>
+
+    <bean id="listService" class="service.imp.ListServiceImp">
+        <property name="listDAO" ref="listDAO"/>
+    </bean>
+
+    <bean id="userController" class="controller.UserController">
+        <property name="userService" ref="userService"/>
+        <property name="projectService" ref="projectService"/>
+        <property name="listService" ref="listService"/>
+    </bean>
+
+</beans>
