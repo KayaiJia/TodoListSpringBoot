@@ -6,6 +6,7 @@
 <!--    <packaging>war</packaging>-->
 
 
+
     <build>
         <plugins>
 
@@ -101,6 +102,7 @@
             <!-- 只在编译和测试的时候用 -->
             <scope>provided</scope>
         </dependency>
+
 
     </dependencies>
 </project>
