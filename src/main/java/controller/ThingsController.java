@@ -35,7 +35,7 @@ public class ThingsController {
         thingService.addThing(title,tag,describe,remark,time,done,openid,type,name);
         ReturnData returnData = new ReturnData();
         returnData.setType(ReturnType.REDIRECT);
-        returnData.setData("destination","/thingsController.do?operate=addThingsToThingsMap&title=" + URLEncoder.encode(title,"UTF-8") + "&type=" + type + "&name=" + URLEncoder.encode(name,"UTF-8"));
+        returnData.setData("destination", "/TodoList/ThingsController.do?operate=addThingsToThingsMap&title=" + URLEncoder.encode(title, "UTF-8") + "&type=" + type + "&name=" + URLEncoder.encode(name, "UTF-8"));
         return returnData;
     }
 
