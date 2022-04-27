@@ -98,6 +98,29 @@ public class ProjectDAOImp implements ProjectDAO {
         return query;
     }
 
+    /**
+     * @param name : 项目名字
+     * @param id   : 用户id
+     * @return pojo.Project
+     * @author kayai
+     * @date 2022/4/26 21:55
+     */
+    @Override
+    public Project queryProject(String name, int id) throws SQLException {
+        String sql = "SELECT * FROM project WHERE user_id = ? AND project_name = ?";
+        QueryRunner runner = new QueryRunner();
+        Project query = runner.query(connection, sql, new BeanHandler<>(Project.class), id,name);
+        String sql1 = "SELECT things_id FROM things_map WHERE map_id = ? AND classify = ?";
+        List<Object[]> things_id = runner.query(connection, sql1, new ArrayListHandler(), query.get_id(), 1);
+        Iterator<Object[]> iterator = things_id.iterator();
+        while (iterator.hasNext()){
+            String sql2 = "SELECT * FROM things WHERE _id = ?";
+            Thing thing = thingDAOImp.queryThing((Integer) iterator.next()[0]);
+            query.setThings(thing);
+        }
+        return query;
+    }
+
 
     /**
      * 根据用户查找所有项目

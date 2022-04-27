@@ -101,6 +101,20 @@ public class ListDAOImp implements ListDAO {
     }
 
     /**
+     * @param name   : 列表名字
+     * @param userID : 要查询的用户id
+     * @return pojo.List
+     * @author kayai
+     * @date 2022/4/26 21:51
+     */
+    @Override
+    public List queryList(String name, int userID) throws SQLException {
+        String sql = "SELECT * FROM `list` WHERE user_id = ? AND list_name = ?";
+        QueryRunner runner = new QueryRunner();
+        return runner.query(connection, sql, new BeanHandler<>(List.class), userID,name);
+    }
+
+    /**
      * 获取用户全部的list
      *
      * @param id : 要查找的用户的id

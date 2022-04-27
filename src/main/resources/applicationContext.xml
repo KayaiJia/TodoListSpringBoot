@@ -24,6 +24,7 @@
 
     <bean id="userService" class="service.imp.UserServiceImp">
         <property name="userDAO" ref="userDAO"/>
+        <property name="listDAO" ref="listDAO"/>
     </bean>
 
     <bean id="projectService" class="service.imp.ProjectServiceImp">
@@ -32,12 +33,26 @@
 
     <bean id="listService" class="service.imp.ListServiceImp">
         <property name="listDAO" ref="listDAO"/>
+        <property name="userDAO" ref="userDAO"/>
+        <property name="mapDAO" ref="mapDAO"/>
+    </bean>
+
+    <bean id="thingService" class="service.imp.ThingServiceImp">
+        <property name="thingDAO" ref="thingDAO"/>
+        <property name="userDAO" ref="userDAO"/>
+        <property name="listDAO" ref="listDAO"/>
+        <property name="projectDAO" ref="projectDAO"/>
+        <property name="mapDAO" ref="mapDAO"/>
     </bean>
 
     <bean id="userController" class="controller.UserController">
         <property name="userService" ref="userService"/>
         <property name="projectService" ref="projectService"/>
         <property name="listService" ref="listService"/>
+    </bean>
+
+    <bean id="thingsController" class="controller.ThingsController">
+        <property name="thingService" ref="thingService"/>
     </bean>
 
 </beans>

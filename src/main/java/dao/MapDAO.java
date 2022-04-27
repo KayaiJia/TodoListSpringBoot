@@ -27,6 +27,8 @@ public interface MapDAO {
      */
     public void update(ThingsMap thingsMap) throws SQLException;
 
+    public void update(int thing_id,String title,int map_id) throws SQLException;
+
     /**
      * 删除
      * @author kayai

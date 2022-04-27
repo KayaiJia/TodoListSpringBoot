@@ -45,6 +45,8 @@ public interface ThingDAO {
      */
     public Thing queryThing(int id) throws SQLException;
 
+    public Thing queryThing(String name, int id) throws SQLException;
+
     /**
      * 查找用户所有事件
      * @author kayai

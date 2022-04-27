@@ -44,6 +44,16 @@ public interface ListDAO {
     public List queryList(int id) throws SQLException;
 
     /**
+     *
+     * @author kayai
+     * @date 2022/4/26 21:51
+     * @param name: 列表名字
+     * @param userID: 要查询的用户id
+     * @return pojo.List
+     */
+    public List queryList(String name, int userID) throws SQLException;
+
+    /**
      * 获取用户全部的list
      * @author kayai
      * @date 2022/4/23 18:29

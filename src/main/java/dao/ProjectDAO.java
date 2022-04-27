@@ -47,6 +47,16 @@ public interface ProjectDAO {
     public Project queryProject(int id) throws SQLException;
 
     /**
+     *
+     * @author kayai
+     * @date 2022/4/26 21:55
+     * @param name: 项目名字
+     * @param id: 用户id
+     * @return pojo.Project
+     */
+    public Project queryProject(String name, int id) throws SQLException;
+
+    /**
      * 根据用户查找所有项目
      * @author kayai
      * @date 2022/4/23 18:22

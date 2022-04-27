@@ -1,6 +1,9 @@
 package myssm.spingmvc;
 
 import myssm.ioc.BeanFactory;
+import org.json.JSONObject;
+import pojo.ReturnData;
+import pojo.ReturnType;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +14,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Map;
 
 /**
  * @author kayai
@@ -64,7 +68,9 @@ public class DispatcherServlet extends HttpServlet {
                             parameterValues[i] = resp;
                         }else if ("session".equals(parameterName)){
                             parameterValues[i] = req.getSession();
-                        }else {
+                        } else if ("openid".equals(parameterName)) {
+                            parameterValues[i] = req.getHeader("X-WX-OPENID");
+                        } else {
                             String parameterValue = req.getParameter(parameterName);
                             String typeName = parameter.getType().getName();
 
@@ -82,12 +88,17 @@ public class DispatcherServlet extends HttpServlet {
                     }
                     m.setAccessible(true);
                     Object returnObj = m.invoke(controllerBeanObj,parameterValues);
-                    String methodReturnStr = (String) returnObj;
-                    if (methodReturnStr.startsWith("redirect:")){
-                        String redirectStr = methodReturnStr.substring("redirect".length());
+                    ReturnData methodReturn = (ReturnData) returnObj;
+                    if (methodReturn.getType().equals(ReturnType.valueOf("REDIRECT").name())){
+                        String redirectStr = (String) methodReturn.getData("destination");
                         resp.sendRedirect(redirectStr);
                     }else{
-
+                        Map<String, Object> data = methodReturn.getData();
+                        JSONObject object = new JSONObject();
+                        object.put("data",data);
+                        resp.setCharacterEncoding("UTF-8");
+                        resp.setHeader("Content-Type", "text/html;charset=utf-8");
+                        resp.getWriter().print(object);
                     }
                     return;
                 } catch (IllegalAccessException | InvocationTargetException e) {

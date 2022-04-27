@@ -35,10 +35,10 @@ public class MapDAOImp implements MapDAO {
      */
     @Override
     public void add(ThingsMap thingsMap) throws SQLException {
-        String sql = "INSERT INTO things_map(things_id,classify,map_id) " +
-                "VALUES(?,?,?)";
+        String sql = "INSERT INTO things_map(things_id,classify,map_id,things_title) " +
+                "VALUES(?,?,?,?)";
         QueryRunner runner = new QueryRunner();
-        runner.update(connection,sql,thingsMap.getThings_id(),thingsMap.getClassify(),thingsMap.getMap_id());
+        runner.update(connection,sql,thingsMap.getThings_id(),thingsMap.getClassify(),thingsMap.getMap_id(),thingsMap.getThings_title());
     }
 
     /**
@@ -56,6 +56,16 @@ public class MapDAOImp implements MapDAO {
                 "WHERE _id = ?";
         QueryRunner runner = new QueryRunner();
         runner.update(connection,sql,thingsMap.getClassify(),thingsMap.getMap_id(),thingsMap.get_id());
+    }
+
+    @Override
+    public void update(int thing_id, String title, int map_id) throws SQLException {
+        String sql = "UPDATE things_map " +
+                "SET things_id = ? " +
+                "WHERE map_id = ? " +
+                "AND things_title = ? ";
+        QueryRunner runner = new QueryRunner();
+        runner.update(connection,sql,thing_id,map_id,title);
     }
 
     /**
