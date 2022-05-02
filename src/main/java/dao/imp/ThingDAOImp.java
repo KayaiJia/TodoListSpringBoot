@@ -64,7 +64,7 @@ public class ThingDAOImp implements ThingDAO {
                 "remark = ? ," +
                 "remind_time = ? ," +
                 "reminder_date = ?," +
-                "done = ?" +
+                "done = ? " +
                 "WHERE _id = ?";
         QueryRunner runner = new QueryRunner();
         runner.update(connection,sql,thing.getTitle(),thing.getTag(),thing.getDescribe(),thing.getRemark(),thing.getRemind_time(),thing.getReminder_date(),thing.getDone(),thing.get_id());
@@ -83,6 +83,8 @@ public class ThingDAOImp implements ThingDAO {
         QueryRunner runner = new QueryRunner();
         runner.update(connection,sql,id);
     }
+
+
 
     /**
      * 查找单个事件
@@ -107,12 +109,8 @@ public class ThingDAOImp implements ThingDAO {
         String sql = "SELECT * FROM things WHERE user = ? AND title = ?";
         QueryRunner runner = new QueryRunner();
         Object[] query = runner.query(connection, sql, new ArrayHandler(), user_id,name);
-        for (int i=0;i<query.length;i++){
-            System.out.println(query[i]);
-        }
         String sql1 = "SELECT * FROM `user` WHERE _id = ?";
         User user = runner.query(connection, sql1, new BeanHandler<User>(User.class), query[8]);
-        System.out.println(user);
         return new Thing((Integer) query[0], (String) query[1], (String) query[2], (String) query[3], (String) query[4], (Time) query[5], (Date) query[6], (Boolean) query[7],user);
     }
 

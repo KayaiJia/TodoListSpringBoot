@@ -3,6 +3,7 @@ package dao.imp;
 import dao.MapDAO;
 import dao.util.JDBCUtils;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import pojo.ThingsMap;
 
@@ -68,6 +69,24 @@ public class MapDAOImp implements MapDAO {
         runner.update(connection,sql,thing_id,map_id,title);
     }
 
+    @Override
+    public void update(int thing_id, String name) throws SQLException {
+        String sql = "UPDATE things_map " +
+                "SET things_title = ? " +
+                "WHERE things_id = ?";
+        QueryRunner runner = new QueryRunner();
+        runner.update(connection,sql,name,thing_id);
+    }
+
+    @Override
+    public void update(int thing_id, int map_id,int newID) throws SQLException {
+        String sql = "UPDATE things_map " +
+                "SET map_id = ? " +
+                "WHERE things_id = ? AND map_id = ?";
+        QueryRunner runner = new QueryRunner();
+        runner.update(connection,sql,newID,thing_id,map_id);
+    }
+
     /**
      * 删除
      *
@@ -77,9 +96,16 @@ public class MapDAOImp implements MapDAO {
      */
     @Override
     public void del(int id) throws SQLException {
-        String sql = "DELETE FROM things_map WHERE _id = ?";
+        String sql = "DELETE FROM things_map WHERE things_id = ?";
         QueryRunner runner = new QueryRunner();
         runner.update(connection,sql,id);
+    }
+
+    @Override
+    public void del(Integer thing_id, Integer classify) throws SQLException {
+        String sql = "DELETE FROM things_map WHERE things_id = ? AND classify = ?";
+        QueryRunner runner = new QueryRunner();
+        runner.update(connection,sql,thing_id,classify);
     }
 
     /**
@@ -96,5 +122,12 @@ public class MapDAOImp implements MapDAO {
         String sql = "SELECT * FROM things_map WHERE map_id = ? AND classify = ?";
         QueryRunner runner = new QueryRunner();
         return runner.query(connection,sql,new BeanListHandler<ThingsMap>(ThingsMap.class),id,classify);
+    }
+
+    @Override
+    public ThingsMap query(Integer thing_id, Integer classify) throws SQLException {
+        String sql = "SELECT * FROM things_map WHERE things_id = ? AND classify = ?";
+        QueryRunner runner = new QueryRunner();
+        return runner.query(connection,sql,new BeanHandler<>(ThingsMap.class),thing_id,classify);
     }
 }

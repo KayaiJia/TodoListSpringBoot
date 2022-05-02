@@ -77,9 +77,9 @@ public class DispatcherServlet extends HttpServlet {
                             Object parameterObj = parameterValue;
 
                             if (parameterObj != null) {
-                                if ("java.lang.Integer".equals(typeName)) {
+                                if ("java.lang.Integer".equals(typeName) && !"".equals(parameterValue)  && !parameterValue.isEmpty()) {
                                     parameterObj = Integer.parseInt(parameterValue);
-                                } else if ("java.lang.Double".equals(typeName)) {
+                                } else if ("java.lang.Double".equals(typeName) && !"".equals(parameterValue)  && !parameterValue.isEmpty()) {
                                     parameterObj = Double.parseDouble(parameterValue);
                                 }
                             }

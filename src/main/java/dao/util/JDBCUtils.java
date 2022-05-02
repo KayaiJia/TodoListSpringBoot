@@ -46,6 +46,7 @@ public class JDBCUtils {
             if (conn != null && !conn.isClosed()){
                 try {
                     conn.close();
+                    conn = null;
                     threadLocal.set(null);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);

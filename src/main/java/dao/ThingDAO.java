@@ -36,6 +36,7 @@ public interface ThingDAO {
      */
     public void delThing(int id) throws SQLException;
 
+
     /**
      * 查找单个事件
      * @author kayai

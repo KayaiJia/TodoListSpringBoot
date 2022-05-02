@@ -29,6 +29,7 @@
 
     <bean id="projectService" class="service.imp.ProjectServiceImp">
         <property name="projectDAO" ref="projectDAO"/>
+        <property name="userDAO" ref="userDAO"/>
     </bean>
 
     <bean id="listService" class="service.imp.ListServiceImp">
@@ -53,6 +54,16 @@
 
     <bean id="thingsController" class="controller.ThingsController">
         <property name="thingService" ref="thingService"/>
+    </bean>
+
+    <bean id="projectController" class="controller.ProjectController">
+        <property name="projectService" ref="projectService"/>
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+
+    <bean id="listController" class="controller.ListController">
+        <property name="listService" ref="listService"/>
+        <property name="userDAO" ref="userDAO"/>
     </bean>
 
 </beans>

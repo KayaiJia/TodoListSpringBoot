@@ -65,4 +65,5 @@ public interface ProjectDAO {
      */
     public List<Project> queryProjectAll(int id) throws SQLException;
 
+
 }
