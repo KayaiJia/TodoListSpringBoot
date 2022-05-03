@@ -55,4 +55,9 @@ public interface ThingService {
 
     public void del(Thing thing) throws SQLException;
 
+    public List<Thing> search(String openid,String keyword) throws SQLException;
+
+    public void update(String openid,String title,String remark,Integer id, String time,String done) throws SQLException;
+
+    public void delete(Integer id) throws SQLException;
 }

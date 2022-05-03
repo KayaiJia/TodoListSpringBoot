@@ -136,4 +136,20 @@ public class ThingDAOImp implements ThingDAO {
         }
         return thingList;
     }
+
+    @Override
+    public List<Thing> queryThingForKeyword(String keyword, int userid) throws SQLException {
+        String sql = "SELECT * FROM things WHERE `user` = ? AND title LIKE ?";
+        QueryRunner runner = new QueryRunner();
+        keyword = "%"+keyword+"%";
+        List<Object[]> query = runner.query(connection, sql, new ArrayListHandler(), userid, keyword);
+        List<Thing> thingList = new ArrayList<>();
+        String sql1 = "SELECT * FROM `user` WHERE _id = ?";
+        for (Object objs[] : query){
+            User user = runner.query(connection, sql1, new BeanHandler<>(User.class), objs[8]);
+            Thing thing = new Thing((Integer) objs[0], (String) objs[1], (String) objs[2], (String) objs[3], (String) objs[4], (Time) objs[5], (Date) objs[6], (Boolean) objs[7],user);
+            thingList.add(thing);
+        }
+        return thingList;
+    }
 }

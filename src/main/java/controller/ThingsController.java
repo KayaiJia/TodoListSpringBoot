@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * @author kayai
@@ -94,6 +95,14 @@ public class ThingsController {
         return returnData;
     }
 
+    public ReturnData update(String openid,String title,String remark,Integer id, String time,String done) throws SQLException {
+        thingService.update(openid,title,remark,id,time,done);
+        ReturnData returnData = new ReturnData();
+        returnData.setType(ReturnType.RENDER);
+        returnData.setData("status","OK");
+        return returnData;
+    }
+
     public ReturnData doneThing(String openid, Integer listId, Integer index) throws SQLException {
         Thing thing = thingService.queryThingForList(openid, listId, index);
         thingService.doneThing(thing, listId, openid);
@@ -115,6 +124,24 @@ public class ThingsController {
         returnData.setType(ReturnType.RENDER);
         returnData.setData("status", "OK");
 
+        return returnData;
+    }
+
+    public ReturnData deleteID(Integer id) throws SQLException {
+        thingService.delete(id);
+
+        ReturnData returnData = new ReturnData();
+        returnData.setType(ReturnType.RENDER);
+        returnData.setData("status", "OK");
+
+        return returnData;
+    }
+
+    public ReturnData search(String openid,String keyword) throws SQLException {
+        List<Thing> results = thingService.search(openid, keyword);
+        ReturnData returnData = new ReturnData();
+        returnData.setType(ReturnType.RENDER);
+        returnData.setData("results",results);
         return returnData;
     }
 }

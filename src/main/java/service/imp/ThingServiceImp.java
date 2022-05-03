@@ -160,6 +160,34 @@ public class ThingServiceImp implements ThingService {
         mapDAO.del(thing.get_id());
     }
 
+    @Override
+    public java.util.List<Thing> search(String openid, String keyword) throws SQLException {
+        User user = userDAO.queryUser(openid);
+        return thingDAO.queryThingForKeyword(keyword, user.get_id());
+    }
+
+    @Override
+    public void update(String openid,String title, String remark, Integer id, String time, String done) throws SQLException {
+        Date addDate = null;
+        Time addTime = null;
+
+        if (time != null && !"".equals(time)){
+            String date = time.substring(0, 10);
+            addDate = strToDate(date);
+
+            time = time.substring(11);
+            addTime = strToTime(time);
+        }
+
+        thingDAO.updateThing(new Thing(id,title,"","",remark,addTime,addDate,Boolean.parseBoolean(done),userDAO.queryUser(openid)));
+    }
+
+    @Override
+    public void delete(Integer id) throws SQLException {
+        thingDAO.delThing(id);
+        mapDAO.del(id);
+    }
+
     private java.sql.Date strToDate(String strDate) {
         String str = strDate;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

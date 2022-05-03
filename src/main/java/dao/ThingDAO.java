@@ -28,6 +28,7 @@ public interface ThingDAO {
      */
     public void updateThing(Thing thing) throws SQLException;
 
+
     /**
      * 删除事件
      * @author kayai
@@ -56,4 +57,6 @@ public interface ThingDAO {
      * @return java.util.List<pojo.Thing>
      */
     public List<Thing> queryThingAll(int id) throws SQLException;
+
+    public List<Thing> queryThingForKeyword(String keyword,int userid) throws SQLException;
 }
